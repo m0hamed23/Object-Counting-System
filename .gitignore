@@ -1,0 +1,36 @@
+# ---- Node / Angular ----
+node_modules/
+dist/
+.tmp/
+.angular/
+
+# ---- ASP.NET / Visual Studio ----
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ---- Logs ----
+*.log
+*.txt
+
+# ---- Environment / Secrets ----
+.env
+secrets.json
+
+# ---- VSCode ----
+.vscode/
+
+# ---- Backend (WebAPI) Specific ----
+CountingBackend/CountingWebAPI/Data/*.db
+CountingBackend/CountingWebAPI/publish/
+CountingBackend/CountingWebAPI/Logs/
+
+# Ignore all ONNX models
+CountingBackend/CountingWebAPI/Models/YoloModels/*.onnx
+CountingBackend/CountingWebAPI/runtime_assets/**/*.onnx
+CountingBackend/CountingWebAPI/runtime_assets/**/*.db
+CountingBackend/CountingWebAPI/wwwroot/

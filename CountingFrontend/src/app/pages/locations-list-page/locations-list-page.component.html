@@ -1,0 +1,35 @@
+<div class="page-container">
+    <div class="page-header">
+      <h1>Locations</h1>
+      <button class="btn btn-primary" routerLink="/locations/new">Add Location</button>
+    </div>
+  
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Associated Zones</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let location of locations$ | async">
+            <td>{{ location.id }}</td>
+            <td>{{ location.name }}</td>
+            <td>
+                <ul *ngIf="location.zones.length > 0; else noZones">
+                    <li *ngFor="let zone of location.zones">{{ zone.name }}</li>
+                </ul>
+                <ng-template #noZones>N/A</ng-template>
+            </td>
+            <td class="actions">
+              <button class="btn btn-secondary" [routerLink]="['/locations/edit', location.id]">Edit</button>
+              <button class="btn btn-danger" (click)="onDelete(location.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

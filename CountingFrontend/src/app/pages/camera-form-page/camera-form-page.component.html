@@ -1,0 +1,38 @@
+<div class="page-header">
+    <h1>{{ isEditMode ? 'Edit' : 'Create' }} Camera</h1>
+    <button class="btn btn-secondary" routerLink="/cameras">Back to List</button>
+</div>
+  
+<div class="form-container">
+    <form [formGroup]="cameraForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Camera Name</label>
+            <input id="name" type="text" formControlName="name" placeholder="e.g., Entrance Cam 1">
+            <div *ngIf="f['name'].touched && f['name'].invalid" class="error-message">
+                Name is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="rtspUrl">RTSP URL</label>
+            <input id="rtspUrl" type="text" formControlName="rtspUrl" placeholder="rtsp://user:pass@ip_address/stream">
+            <div *ngIf="f['rtspUrl'].touched && f['rtspUrl'].invalid" class="error-message">
+                RTSP URL is required.
+            </div>
+        </div>
+
+        <div class="form-group checkbox-group">
+            <label>
+                <input type="checkbox" formControlName="isEnabled">
+                Enable this camera for processing
+            </label>
+        </div>
+  
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary" routerLink="/cameras">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="cameraForm.invalid">
+                {{ isEditMode ? 'Update' : 'Create' }} Camera
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,6 @@
+@CountingWebAPI_HostAddress = http://localhost:5287
+
+GET {{CountingWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

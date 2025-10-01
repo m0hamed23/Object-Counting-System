@@ -1,0 +1,59 @@
+
+.page-container {
+    padding: 1rem;
+}
+
+.page-header {
+    margin-bottom: 1.5rem;
+}
+
+.user-content {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+table { width: 100%; }
+
+.actions { display: flex; gap: 0.5rem; }
+
+.dialog {
+    padding: 1.5rem 2rem;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 400px;
+    max-width: 500px;
+    margin: auto; /* This is the fix to center the dialog */
+}
+.dialog::backdrop {
+    background: rgba(0,0,0,0.6);
+}
+.dialog h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.5em;
+    color: #2c3e50;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+.error-message {
+    color: #e74c3c;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}

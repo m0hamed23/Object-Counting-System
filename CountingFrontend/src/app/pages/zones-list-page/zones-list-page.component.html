@@ -1,0 +1,35 @@
+<div class="page-container">
+    <div class="page-header">
+      <h1>Zones</h1>
+      <button class="btn btn-primary" routerLink="/zones/new">Add Zone</button>
+    </div>
+  
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Associated Cameras</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let zone of zones$ | async">
+            <td>{{ zone.id }}</td>
+            <td>{{ zone.name }}</td>
+            <td>
+                <ul *ngIf="zone.cameras.length > 0; else noCameras">
+                    <li *ngFor="let camera of zone.cameras">{{ camera.name }}</li>
+                </ul>
+                <ng-template #noCameras>N/A</ng-template>
+            </td>
+            <td class="actions">
+              <button class="btn btn-secondary" [routerLink]="['/zones/edit', zone.id]">Edit</button>
+              <button class="btn btn-danger" (click)="onDelete(zone.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

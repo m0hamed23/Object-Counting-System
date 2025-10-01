@@ -1,0 +1,151 @@
+
+.page-container {
+    padding: 1rem;
+}
+
+.page-header {
+    margin-bottom: 1.5rem;
+}
+
+.logs-content {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-end;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.text-filter {
+    flex-grow: 1;
+    min-width: 200px;
+}
+
+/* Button wrapper alignment fix */
+.form-group.button-wrapper {
+    flex-grow: 0;
+    justify-content: flex-end;
+    padding-top: 1.75rem; /* Approximate height of label + gap */
+    flex-direction: row; /* Align buttons horizontally */
+    gap: 0.5rem;
+}
+
+/* Remove the sr-only label approach and use padding instead */
+.form-group.button-wrapper label {
+    display: none;
+}
+
+input { 
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 2.5rem; /* Fixed height for all inputs */
+    box-sizing: border-box;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+input[type="datetime-local"] {
+    /* Ensure date inputs match text inputs exactly */
+    height: 2.5rem;
+    padding: 0.5rem;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    height: 2.5rem; /* Match input height */
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #545b62;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table { 
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.image-dialog {
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.image-dialog::backdrop {
+    background: rgba(0,0,0,0.6);
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.image-container img {
+    max-width: 100%;
+    max-height: calc(90vh - 60px); /* Account for button bar */
+    object-fit: contain;
+}
+
+.dialog-buttons {
+    padding: 1rem;
+    text-align: right;
+    background: #f1f1f1;
+    border-top: 1px solid #ddd;
+}

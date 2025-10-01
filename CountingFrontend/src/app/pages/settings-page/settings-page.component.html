@@ -1,0 +1,76 @@
+
+<div class="page-container">
+    <div class="page-header">
+      <h1>Application Settings</h1>
+    </div>
+  
+    <div class="settings-content">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Setting</th>
+              <th>Value</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let setting of settings">
+              <td>{{ setting.displayName }}</td>
+              <td>
+                <!-- Dropdown for Model Type -->
+                <select *ngIf="setting.name === 'model_type'; else defaultInput" [(ngModel)]="setting.value" (ngModelChange)="onSettingChange()" [title]="setting.description">
+                  <option value="YOLO">YOLO</option>
+                  <option value="RF-DETR">RF-DETR</option>
+                </select>
+
+                <ng-template #defaultInput>
+                  <!-- Dual Listbox UI for Target Classes -->
+                  <div *ngIf="setting.name === 'target_classes'; else textInput" class="dual-listbox">
+                    
+                    <!-- Available Classes List -->
+                    <div class="listbox-container">
+                      <label>Available Classes</label>
+                      <input type="text" [(ngModel)]="availableFilter" placeholder="Search available..." class="listbox-filter">
+                      <div class="listbox">
+                        <div *ngFor="let cls of filteredAvailableClasses" class="listbox-item" (click)="moveToSelected(cls)">
+                          {{ cls }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="listbox-actions">
+                      <button type="button" class="btn btn-secondary" (click)="moveAllToSelected()" title="Add all">&gt;&gt;</button>
+                      <button type="button" class="btn btn-secondary" (click)="moveAllToAvailable()" title="Remove all">&lt;&lt;</button>
+                    </div>
+
+                    <!-- Selected Classes List -->
+                    <div class="listbox-container">
+                      <label>Selected Classes</label>
+                      <input type="text" [(ngModel)]="selectedFilter" placeholder="Search selected..." class="listbox-filter">
+                      <div class="listbox">
+                         <div *ngFor="let cls of filteredSelectedClasses" class="listbox-item" (click)="moveToAvailable(cls)">
+                          {{ cls }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Default text input for other settings -->
+                  <ng-template #textInput>
+                    <input type="text" [(ngModel)]="setting.value" (ngModelChange)="onSettingChange()" [title]="setting.description">
+                  </ng-template>
+                </ng-template>
+              </td>
+              <td>{{ setting.description }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <div class="button-row">
+        <button class="btn btn-primary" (click)="saveSettings()" [disabled]="!hasChanges">Save Changes</button>
+      </div>
+    </div>
+</div>

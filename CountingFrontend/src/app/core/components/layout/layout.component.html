@@ -1,0 +1,25 @@
+<aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>Counting System</h3>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">Dashboard</a>
+      <a routerLink="/locations" routerLinkActive="active" class="nav-item">Locations</a>
+      <a routerLink="/zones" routerLinkActive="active" class="nav-item">Zones</a>
+      <a routerLink="/cameras" routerLinkActive="active" class="nav-item">Cameras</a>
+      <a routerLink="/actions" routerLinkActive="active" class="nav-item">Actions</a>
+      <a routerLink="/logs" routerLinkActive="active" class="nav-item">Logs</a>
+      <a routerLink="/settings" routerLinkActive="active" class="nav-item">Settings</a>
+      <a routerLink="/users" routerLinkActive="active" class="nav-item">Users</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">Logged in as: <strong>{{ (authService.currentUser$ | async)?.username }}</strong></div>
+      <button (click)="logout()" class="logout-button">Logout</button>
+    </div>
+</aside>
+  
+<main class="main-content">
+    <div class="page-container">
+        <router-outlet></router-outlet>
+    </div>
+</main>

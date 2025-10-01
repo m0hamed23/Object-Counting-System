@@ -1,0 +1,64 @@
+
+<div class="page-header">
+    <h1>{{ isEditMode ? 'Edit' : 'Create' }} Action</h1>
+    <button class="btn btn-secondary" routerLink="/actions">Back to List</button>
+</div>
+  
+<div class="form-container">
+    <form [formGroup]="actionForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Action Name</label>
+            <input id="name" type="text" formControlName="name" placeholder="e.g., Send to Main Server">
+            <div *ngIf="f['name'].touched && f['name'].invalid" class="error-message">
+                Name is required (min 3 chars).
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="ipAddress">IP Address</label>
+            <input id="ipAddress" type="text" formControlName="ipAddress" placeholder="e.g., 192.168.1.100">
+            <div *ngIf="f['ipAddress'].touched && f['ipAddress'].errors" class="error-message">
+                <span *ngIf="f['ipAddress'].errors['required']">IP Address is required.</span>
+                <span *ngIf="f['ipAddress'].errors['pattern']">Invalid IP Address format.</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="port">Port</label>
+            <input id="port" type="number" formControlName="port" placeholder="e.g., 9999">
+             <div *ngIf="f['port'].touched && f['port'].errors" class="error-message">
+                Port is required (1-65535).
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="interval">Interval (milliseconds)</label>
+            <input id="interval" type="number" formControlName="intervalMilliseconds" placeholder="e.g., 1000 for 1 second">
+             <div *ngIf="f['intervalMilliseconds'].touched && f['intervalMilliseconds'].errors" class="error-message">
+                Interval is required (min 100ms).
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="protocol">Protocol</label>
+            <select id="protocol" formControlName="protocol">
+                <option value="TCP">TCP</option>
+                <option value="UDP">UDP</option>
+            </select>
+        </div>
+
+        <div class="form-group checkbox-group">
+            <label>
+                <input type="checkbox" formControlName="isEnabled">
+                Enable this action
+            </label>
+        </div>
+  
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary" routerLink="/actions">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="actionForm.invalid">
+                {{ isEditMode ? 'Update' : 'Create' }} Action
+            </button>
+        </div>
+    </form>
+</div>

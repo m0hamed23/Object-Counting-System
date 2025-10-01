@@ -1,0 +1,38 @@
+<div class="page-container">
+    <div class="page-header">
+      <h1>Cameras</h1>
+      <button class="btn btn-primary" routerLink="/cameras/new">Add Camera</button>
+    </div>
+  
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Source</th>
+            <th>Status</th>
+            <th>Last Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let camera of cameras$ | async">
+            <td>{{ camera.id }}</td>
+            <td>{{ camera.name }}</td>
+            <td>{{ camera.rtspUrl }}</td>
+            <td>
+              <span [ngClass]="camera.isEnabled ? 'status-enabled' : 'status-disabled'">
+                {{ camera.isEnabled ? 'Enabled' : 'Disabled' }}
+              </span>
+            </td>
+            <td>{{ camera.lastUpdated | date:'medium' }}</td>
+            <td class="actions">
+              <button class="btn btn-secondary" [routerLink]="['/cameras/edit', camera.id]">Edit</button>
+              <button class="btn btn-danger" (click)="onDelete(camera.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+
+.page-container {
+    padding: 1rem;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.table-container {
+    overflow-x: auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.status-enabled {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.status-disabled {
+    color: #6c757d;
+}

@@ -1,0 +1,147 @@
+<div class="control-container">
+    <div class="barriers-section">
+      <h2>Barriers</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>PLC IP</th>
+              <th>Open Relay</th>
+              <th>Close Relay</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let barrier of barriers">
+              <td>{{barrier.id}}</td>
+              <td>{{barrier.name}}</td>
+              <td>{{barrier.plc_ip}}</td>
+              <td>{{barrier.open_relay}}</td>
+              <td>{{barrier.close_relay}}</td>
+              <td class="actions">
+                <button (click)="controlBarrier(barrier.id, 'open')">Open</button>
+                <button (click)="controlBarrier(barrier.id, 'close')">Close</button>
+                <button (click)="editBarrier(barrier)">Edit</button>
+                <button (click)="deleteBarrier(barrier.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="button-row">
+        <button (click)="showAddBarrierDialog()">Add Barrier</button>
+        <button (click)="loadBarriers()">Refresh</button>
+      </div>
+    </div>
+  
+    <div class="plcs-section">
+      <h2>PLCs</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>IP Address</th>
+              <th>Outputs</th>
+              <th>Inputs</th>
+              <th>Output Start</th>
+              <th>Input Start</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let plc of plcs">
+              <td>{{plc.id}}</td>
+              <td>{{plc.ip_address}}</td>
+              <td>{{plc.num_outputs}}</td>
+              <td>{{plc.num_inputs}}</td>
+              <td>{{plc.output_start_address}}</td>
+              <td>{{plc.input_start_address}}</td>
+              <td class="actions">
+                <button (click)="editPLC(plc)">Edit</button>
+                <button (click)="deletePLC(plc.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="button-row">
+        <button (click)="showAddPLCDialog()">Add PLC</button>
+        <button (click)="loadPLCs()">Refresh</button>
+      </div>
+    </div>
+  
+    <!-- Add/Edit Barrier Dialog -->
+    <dialog #barrierDialog class="dialog">
+      <h3>{{editingBarrier ? 'Edit' : 'Add'}} Barrier</h3>
+      <form [formGroup]="barrierForm" (ngSubmit)="saveBarrier()">
+        <div class="form-group">
+          <label for="barrierNameInput">Name:</label>
+          <input id="barrierNameInput" type="text" formControlName="name">
+        </div>
+        <div class="form-group">
+          <label for="barrierPlcSelect">PLC:</label>
+          <select id="barrierPlcSelect" formControlName="plc_id">
+            <option [ngValue]="null" disabled>Select a PLC</option>
+            <option *ngFor="let plc of plcs" [value]="plc.id">
+              {{plc.ip_address}} (ID: {{plc.id}})
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="barrierOpenRelayInput">Open Relay:</label>
+          <input id="barrierOpenRelayInput" type="number" formControlName="open_relay">
+        </div>
+        <div class="form-group">
+          <label for="barrierCloseRelayInput">Close Relay:</label>
+          <input id="barrierCloseRelayInput" type="number" formControlName="close_relay">
+        </div>
+        <div class="dialog-buttons">
+          <button type="submit" [disabled]="barrierForm.invalid">Save</button>
+          <button type="button" (click)="closeBarrierDialog()">Cancel</button>
+        </div>
+      </form>
+    </dialog>
+  
+    <!-- Add/Edit PLC Dialog -->
+    <dialog #plcDialog class="dialog">
+      <h3>{{editingPLC ? 'Edit' : 'Add'}} PLC</h3>
+      <form [formGroup]="plcForm" (ngSubmit)="savePLC()">
+        <div class="form-group">
+          <label for="plcIpInput">IP Address:</label>
+          <input id="plcIpInput" type="text" formControlName="ip_address">
+        </div>
+        <div class="form-group">
+          <label for="plcOutputStartInput">Output Start Address:</label>
+          <input id="plcOutputStartInput" type="number" formControlName="output_start_address">
+        </div>
+        <div class="form-group">
+          <label for="plcInputStartInput">Input Start Address:</label>
+          <input id="plcInputStartInput" type="number" formControlName="input_start_address">
+        </div>
+        <div class="form-group">
+          <label for="plcNumOutputsInput">Number of Outputs:</label>
+          <input id="plcNumOutputsInput" type="number" formControlName="num_outputs">
+        </div>
+        <div class="form-group">
+          <label for="plcNumInputsInput">Number of Inputs:</label>
+          <input id="plcNumInputsInput" type="number" formControlName="num_inputs">
+        </div>
+        <div class="ports-container">
+          <h4>Ports</h4>
+          <div formArrayName="ports" class="ports-grid">
+            <div *ngFor="let port of plcPorts.controls; let i=index" class="form-group">
+              <label>Port {{i + 1}}:</label>
+              <input type="number" [formControlName]="i" placeholder="e.g. 502">
+            </div>
+          </div>
+        </div>
+        <div class="dialog-buttons">
+          <button type="submit" [disabled]="plcForm.invalid">Save</button>
+          <button type="button" (click)="closePLCDialog()">Cancel</button>
+        </div>
+      </form>
+    </dialog>
+  </div>

@@ -1,0 +1,16 @@
+
+<div class="login-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <h2>Login</h2>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" formControlName="username" autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" autocomplete="current-password">
+      </div>
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+      <div *ngIf="error" class="error-message">{{ error }}</div>
+    </form>
+</div>

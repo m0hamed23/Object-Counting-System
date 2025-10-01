@@ -1,0 +1,152 @@
+.control-container {
+    padding: 1rem;
+    background-color: #f9f9f9; /* Light background for the whole component area */
+  }
+  .barriers-section, .plcs-section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  .table-container {
+    overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    /* background: white; // Already set by section */
+  }
+  th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #eee; /* Lighter border for rows */
+  }
+  td:first-child, th:first-child {
+      border-left: 1px solid #eee;
+  }
+  td:last-child, th:last-child {
+      border-right: 1px solid #eee;
+  }
+  th {
+    background-color: #f7f7f7; /* Slightly different shade for headers */
+    font-weight: 600; /* Bolder font */
+    color: #333;
+    border-top: 1px solid #eee;
+  }
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+  .actions {
+    white-space: nowrap;
+  }
+  .actions button {
+    margin-right: 0.5rem;
+    padding: 0.4rem 0.8rem; /* Slightly smaller padding */
+    font-size: 0.85em;
+  }
+  .actions button:last-child {
+      margin-right: 0;
+  }
+  .button-row {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+  /* DIALOG STYLES */
+  .dialog {
+    padding: 1.5rem 2rem;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 400px; /* Ensure dialog is not too small */
+    max-width: 600px;
+  }
+  .dialog::backdrop {
+    background: rgba(0,0,0,0.6);
+  }
+  .dialog h3 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      font-size: 1.5em;
+      color: #333;
+  }
+  .form-group {
+    margin-bottom: 1.25rem; /* Increased spacing */
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+  }
+  .form-group input[type="text"],
+  .form-group input[type="number"],
+  .form-group select {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box; /* Important for width and padding */
+  }
+  .form-group input:focus, .form-group select:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+      outline: none;
+  }
+  .dialog-buttons {
+    margin-top: 2rem; /* Increased spacing */
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+  /* .dialog-buttons button {
+    margin-left: 1rem; // Replaced by gap
+  } */
+  .ports-container {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+  }
+  .ports-container h4 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.1em;
+      color: #444;
+  }
+  .ports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Adjusted minmax */
+    gap: 1rem 0.75rem; /* Row and column gap */
+    /* margin-top: 0.5rem; // Removed, form-group has margin */
+  }
+  /* General Button Styles */
+  button {
+    padding: 0.6rem 1.2rem;
+    background-color: #007bff; /* Primary blue */
+    color: white;
+    border: none; /* Removed border */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out;
+  }
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  button:disabled {
+    background-color: #c0c0c0; /* Grey out disabled buttons */
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  button[type="button"] { /* Specific style for cancel/secondary buttons */
+      background-color: #6c757d; /* Grey */
+  }
+  button[type="button"]:hover {
+      background-color: #5a6268;
+  }

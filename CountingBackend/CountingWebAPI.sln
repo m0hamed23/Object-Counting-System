@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountingWebAPI", "CountingWebAPI\CountingWebAPI.csproj", "{39F3E19E-F587-4086-8BB8-1D85B89985E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39F3E19E-F587-4086-8BB8-1D85B89985E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39F3E19E-F587-4086-8BB8-1D85B89985E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39F3E19E-F587-4086-8BB8-1D85B89985E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39F3E19E-F587-4086-8BB8-1D85B89985E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39AD77F6-24C6-4AE1-ACDB-042E274D2551}
+	EndGlobalSection
+EndGlobal

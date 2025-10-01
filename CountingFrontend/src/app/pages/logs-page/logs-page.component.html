@@ -1,0 +1,59 @@
+
+<div class="page-container">
+    <div class="page-header">
+      <h1>Event Logs</h1>
+    </div>
+  
+    <div class="logs-content">
+        <div class="filters">
+            <div class="form-group">
+                <label for="fromDate">From Date:</label>
+                <input id="fromDate" type="datetime-local" [formControl]="fromDate">
+            </div>
+            <div class="form-group">
+                <label for="toDate">To Date:</label>
+                <input id="toDate" type="datetime-local" [formControl]="toDate">
+            </div>
+            <div class="form-group text-filter">
+                <label for="eventFilter">Event Text:</label>
+                <input id="eventFilter" type="text" [formControl]="eventFilter" placeholder="Filter by event text...">
+            </div>
+            <div class="form-group button-wrapper">
+                <button class="btn btn-primary" (click)="applyFilters()">Filter</button>
+                <button class="btn btn-secondary" (click)="resetFilters()">Reset</button>
+            </div>
+        </div>
+    
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Event</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let log of logs">
+                        <td>{{ log.timestamp | date:'medium' }}</td>
+                        <td>{{ log.event }}</td>
+                        <td>
+                            <button class="btn btn-secondary" *ngIf="log.imageName" (click)="showImage(log.imageName)">
+                                View Image
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+  
+    <dialog #imageDialog class="image-dialog">
+        <div class="image-container">
+            <img [src]="currentImageUrl" *ngIf="currentImageUrl">
+            <div class="dialog-buttons">
+                <button class="btn btn-secondary" (click)="closeImageDialog()">Close</button>
+            </div>
+        </div>
+    </dialog>
+</div>

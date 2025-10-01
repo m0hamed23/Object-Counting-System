@@ -1,0 +1,110 @@
+
+<div class="dashboard-container">
+    <div class="control-panel">
+        <div class="control-group">
+            <h3>Connection</h3>
+            <span class="ws-status" [ngClass]="(wsStatus$ | async) || 'Disconnected'">
+                {{ wsStatus$ | async }}
+            </span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <aside class="info-panels">
+            <section class="panel-section">
+                <h3>Locations</h3>
+                <input type="text" class="filter-input" placeholder="Filter locations..." [(ngModel)]="locationFilter" (ngModelChange)="filterLocations()">
+                <div class="card-list">
+                    <div *ngFor="let loc of filteredLocations; trackBy: trackByLocationId" class="card clickable" 
+                         (click)="selectContext('location', loc.id)"
+                         [class.selected]="selectedContext.type === 'location' && selectedContext.id === loc.id">
+                        <div class="card-content">
+                            <h4 class="card-title">{{ loc.name }}</h4>
+                            <div class="count-badge" [class.has-count]="(loc.totalCount || 0) > 0">
+                                {{ loc.totalCount || 0 }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel-section">
+                <h3>Zones</h3>
+                <input type="text" class="filter-input" placeholder="Filter zones..." [(ngModel)]="zoneFilter" (ngModelChange)="filterZones()">
+                <div class="card-list">
+                    <div *ngFor="let zone of filteredZones; trackby: trackByZoneId" class="card clickable"
+                         (click)="selectContext('zone', zone.id)"
+                         [class.selected]="selectedContext.type === 'zone' && selectedContext.id === zone.id">
+                        <div class="card-content">
+                            <h4 class="card-title">{{ zone.name }}</h4>
+                            <div class="count-badge" [class.has-count]="(zone.totalCount || 0) > 0">
+                                {{ zone.totalCount || 0 }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </aside>
+
+        <div class="camera-view">
+            <div class="camera-view-header">
+                <h3>{{ selectedContext.name }}</h3>
+                <button class="btn btn-secondary" (click)="selectContext('all', 0)" *ngIf="selectedContext.type !== 'all'">Show All Cameras</button>
+            </div>
+            <div class="camera-grid">
+                <div *ngFor="let cameraId of paginatedCameraKeys; trackBy: trackByCameraId" class="camera-card" [class.defining-roi]="definingRoiFor === cameraId">
+                    <ng-container *ngIf="cameras[cameraId] as camera">
+                        <div class="camera-header">
+                            <span class="camera-title">{{ camera.name }} (ID: {{ cameraId }})</span>
+                            <span class="status" [ngClass]="camera.status.toLowerCase()">{{ camera.status }}</span>
+                        </div>
+                        
+                        <div class="video-wrapper">
+                            <div class="video-container" #videoContainerRef>
+                                <img [src]="camera.displayUrl" [alt]="camera.name" (load)="onImageLoad(cameraId)">
+                                
+                                <svg class="roi-svg-overlay" [class.defining]="definingRoiFor === cameraId" (click)="addRoiPoint($event, cameraId)">
+                                    <defs>
+                                        <mask [attr.id]="'roi-mask-' + cameraId">
+                                            <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                                            <polygon *ngIf="isRoiValid(cameraId)" [attr.points]="getPolygonPoints(cameraId)" fill="black" />
+                                        </mask>
+                                    </defs>
+                                    <rect *ngIf="isRoiValid(cameraId)" x="0" y="0" width="100%" height="100%" class="roi-shadow-background" [attr.mask]="getMaskUrl(cameraId)" />
+                                    <polygon *ngIf="isRoiValid(cameraId)" [attr.points]="getPolygonPoints(cameraId)" class="roi-polygon-border" />
+                                    <circle *ngFor="let point of displayRois[cameraId]" class="roi-vertex" [attr.cx]="point.x" [attr.cy]="point.y" />
+                                </svg>
+                            </div>
+
+                            <div *ngIf="camera.status === 'Error' || camera.status === 'Inactive'" class="inactive-overlay">
+                                <div class="overlay-content">{{ camera.message || camera.status }}</div>
+                            </div>
+                            <div *ngIf="camera.status === 'Connecting' || camera.status === 'Reconnecting' || camera.status === 'Retrying'" class="loading-overlay">
+                                <div class="overlay-content">
+                                    <div class="loading-spinner"></div>
+                                    <span>{{ camera.status }}...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="camera-controls">
+                            <button class="btn btn-secondary" (click)="toggleDefineRoi(cameraId)" [disabled]="!camera.isActive">
+                                {{ definingRoiFor === cameraId ? 'Cancel ROI' : 'Define ROI' }}
+                            </button>
+                            <button class="btn btn-secondary" *ngIf="definingRoiFor === cameraId" (click)="clearCurrentRoi(cameraId)">Clear Points</button>
+                            <button class="btn btn-primary" *ngIf="definingRoiFor === cameraId" (click)="sendRoi(cameraId)" [disabled]="!isRoiValid(cameraId)">
+                                Save ROI
+                            </button>
+                            <button class="btn btn-danger" (click)="resetRoi(cameraId)" [disabled]="!camera.isActive">Reset ROI</button>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="pagination-controls" *ngIf="totalPages > 1">
+                <button class="btn btn-secondary" (click)="changePage(-1)" [disabled]="currentPage === 1">Previous</button>
+                <span>Page {{ currentPage }} of {{ totalPages }}</span>
+                <button class="btn btn-secondary" (click)="changePage(1)" [disabled]="currentPage === totalPages">Next</button>
+            </div>
+        </div>
+    </div>
+</div>

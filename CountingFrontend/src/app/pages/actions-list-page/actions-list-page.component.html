@@ -1,0 +1,41 @@
+
+<div class="page-container">
+    <div class="page-header">
+      <h1>Actions</h1>
+      <button class="btn btn-primary" routerLink="/actions/new">Add Action</button>
+    </div>
+  
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Target</th>
+            <th>Interval (ms)</th>
+            <th>Protocol</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let action of actions$ | async">
+            <td>{{ action.id }}</td>
+            <td>{{ action.name }}</td>
+            <td>{{ action.ipAddress }}:{{action.port}}</td>
+            <td>{{ action.intervalMilliseconds }}</td>
+            <td>{{ action.protocol }}</td>
+            <td>
+              <span [ngClass]="action.isEnabled ? 'status-enabled' : 'status-disabled'">
+                {{ action.isEnabled ? 'Enabled' : 'Disabled' }}
+              </span>
+            </td>
+            <td class="actions">
+              <button class="btn btn-secondary" [routerLink]="['/actions/edit', action.id]">Edit</button>
+              <button class="btn btn-danger" (click)="onDelete(action.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
