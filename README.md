@@ -173,3 +173,10 @@ This guide includes:
 
 If no NVIDIA GPU is found or CUDA is not properly installed, the system will automatically fall back to using the CPU for processing.
 
+## Credits
+
+Demo video footage courtesy of [Pexels](https://www.pexels.com/):
+- [Winter and snow in St. Petersburg, Russia](https://www.pexels.com/video/winter-and-snow-in-st-petersburg-russia-19892746/)
+- [High angle view of parking lot](https://www.pexels.com/video/high-angle-view-of-parking-lot-3678248/)
+- [A bus is driving down a highway with cars](https://www.pexels.com/video/a-bus-is-driving-down-a-highway-with-cars-26804235/)
+
