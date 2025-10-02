@@ -13,7 +13,7 @@
 ## Technology Stack
 
 - **Backend:** .NET 8, ASP.NET Core Web API
-- **Frontend:** Angular 18
+- **Frontend:** Angular
 - **Database:** SQLite
 - **AI Models:** RF-DETR Or YOLO
 - **Video Processing:** FFmpeg
