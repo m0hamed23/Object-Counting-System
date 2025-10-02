@@ -4,7 +4,7 @@ export interface Zone {
     id: number;
     name: string;
     cameras: Camera[];
-    totalCount?: number; // Simplified for real-time data
+    totalCount?: number; 
 }
 
 export interface ZoneCreatePayload {

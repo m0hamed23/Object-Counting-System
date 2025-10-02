@@ -4,7 +4,7 @@ export interface Location {
     id: number;
     name: string;
     zones: Zone[];
-    totalCount?: number; // Simplified for real-time data
+    totalCount?: number; 
 }
 
 export interface LocationCreatePayload {
@@ -12,5 +12,5 @@ export interface LocationCreatePayload {
 }
 
 export interface LocationAssociationPayload {
-    id: number; // This will be the Zone ID
+    id: number; 
 }

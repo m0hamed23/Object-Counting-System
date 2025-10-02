@@ -47,5 +47,5 @@ export const routes: Routes = [
       { path: 'users', component: UsersPageComponent, title: 'User Management' },
     ]
   },
-  { path: '**', redirectTo: 'dashboard' } // Wildcard route for a 404 page or redirect
+  { path: '**', redirectTo: 'dashboard' } 
 ];

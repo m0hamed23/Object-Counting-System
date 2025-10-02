@@ -14,7 +14,7 @@ interface CameraState {
   status: 'Normal' | 'Inactive' | 'Connecting' | 'Reconnecting' | 'Error' | 'Retrying';
   isActive: boolean;
   message?: string;
-  roi: number[][]; // Normalized
+  roi: number[][]; 
   totalTrackedCount: number;
   zoneIds: number[];
 }

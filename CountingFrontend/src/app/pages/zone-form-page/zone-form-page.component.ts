@@ -25,7 +25,6 @@ export class ZoneFormPageComponent implements OnInit {
   
   allCameras: Camera[] = [];
 
-  // Store the initial state to detect changes
   private originalZoneName: string = '';
   private originalCameraIds = new Set<number>();
 
@@ -54,7 +53,6 @@ export class ZoneFormPageComponent implements OnInit {
     this.cameraService.getCameras().subscribe(cameras => {
       this.allCameras = cameras;
 
-      // Initialize form array with a control for each available camera
       this.camerasArray.clear();
       this.allCameras.forEach(() => this.camerasArray.push(this.fb.control(false)));
 
@@ -72,11 +70,9 @@ export class ZoneFormPageComponent implements OnInit {
     this.zoneService.getZones().subscribe(zones => {
       const zoneToEdit = zones.find(z => z.id === this.zoneId);
       if (zoneToEdit) {
-        // Store original state for comparison on save
         this.originalZoneName = zoneToEdit.name;
         this.originalCameraIds = new Set(zoneToEdit.cameras.map(c => c.id));
 
-        // Patch the form with current values
         this.zoneForm.patchValue({ name: zoneToEdit.name });
         
         this.allCameras.forEach((cam, i) => {
@@ -116,13 +112,11 @@ export class ZoneFormPageComponent implements OnInit {
     const formValue = this.zoneForm.value;
     const updateObservables: Observable<any>[] = [];
 
-    // 1. Check if the name has changed
     if (formValue.name !== this.originalZoneName) {
       updateObservables.push(this.zoneService.updateZone(this.zoneId!, { name: formValue.name }));
     }
 
-    // 2. Check if camera associations have changed
-    const currentSelectedIds = new Set<number>( // Explicitly type the Set
+    const currentSelectedIds = new Set<number>( 
       this.zoneForm.value.cameras
         .map((checked: boolean, i: number) => checked ? this.allCameras[i].id : null)
         .filter((id: number | null): id is number => id !== null)
@@ -140,19 +134,16 @@ export class ZoneFormPageComponent implements OnInit {
       });
     }
 
-    // 3. Execute updates if any are needed
     if (updateObservables.length > 0) {
       forkJoin(updateObservables).subscribe({
         next: () => this.router.navigate(['/zones']),
         error: (err) => alert(`Failed to update zone: ${err.error?.message}`)
       });
     } else {
-      // No changes were made, just navigate back
       this.router.navigate(['/zones']);
     }
   }
 
-  // This function is only used for the CREATE path now
   private getAssociationObservables(zoneId: number): Observable<any>[] {
     const selectedCameraIds = this.zoneForm.value.cameras
       .map((checked: boolean, i: number) => checked ? this.allCameras[i].id : null)
@@ -161,7 +152,6 @@ export class ZoneFormPageComponent implements OnInit {
     return selectedCameraIds.map((id: number) => this.zoneService.addCameraToZone(zoneId, { id }));
   }
 
-  // Helper to compare two sets of numbers
   private haveSetsChanged(setA: Set<number>, setB: Set<number>): boolean {
     if (setA.size !== setB.size) {
       return true;

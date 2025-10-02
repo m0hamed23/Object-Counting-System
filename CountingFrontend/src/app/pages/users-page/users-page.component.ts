@@ -65,7 +65,6 @@ export class UsersPageComponent implements OnInit {
 
     const userData: UserCreate = {
       username: this.f['username'].value,
-      // Send password only if it's not empty, otherwise send undefined
       password: this.f['password'].value || undefined
     };
 

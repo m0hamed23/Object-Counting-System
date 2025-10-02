@@ -30,7 +30,7 @@ table { width: 100%; }
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     min-width: 400px;
     max-width: 500px;
-    margin: auto; /* This is the fix to center the dialog */
+    margin: auto; 
 }
 .dialog::backdrop {
     background: rgba(0,0,0,0.6);

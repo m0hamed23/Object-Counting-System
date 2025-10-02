@@ -83,23 +83,20 @@
 
 .main-content {
     flex-grow: 1;
-    overflow: hidden; /* Prevent the main container from showing a scrollbar */
+    overflow: hidden; 
     display: flex;
     flex-direction: column;
 }
 
 .page-container {
     padding: 25px;
-    height: 100%; /* Make the page container fill the main content area */
-    overflow-y: auto; /* Allow scrolling within the page itself */
-    display: flex; /* Use flexbox for the container of the dashboard page */
-    flex-direction: column; /* Stack dashboard elements vertically */
+    height: 100%; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
 }
 
-/* 
-  By moving the layout logic here, we ensure that the Dashboard page's
-  internal structure is defined correctly within the main layout.
-*/
+
 :host ::ng-deep .dashboard-page .main-content {
   flex-grow: 1;
   display: grid;

@@ -18,17 +18,15 @@
             <tr *ngFor="let setting of settings">
               <td>{{ setting.displayName }}</td>
               <td>
-                <!-- Dropdown for Model Type -->
                 <select *ngIf="setting.name === 'model_type'; else defaultInput" [(ngModel)]="setting.value" (ngModelChange)="onSettingChange()" [title]="setting.description">
                   <option value="YOLO">YOLO</option>
                   <option value="RF-DETR">RF-DETR</option>
                 </select>
 
                 <ng-template #defaultInput>
-                  <!-- Dual Listbox UI for Target Classes -->
                   <div *ngIf="setting.name === 'target_classes'; else textInput" class="dual-listbox">
                     
-                    <!-- Available Classes List -->
+
                     <div class="listbox-container">
                       <label>Available Classes</label>
                       <input type="text" [(ngModel)]="availableFilter" placeholder="Search available..." class="listbox-filter">
@@ -39,13 +37,13 @@
                       </div>
                     </div>
 
-                    <!-- Action Buttons -->
+
                     <div class="listbox-actions">
                       <button type="button" class="btn btn-secondary" (click)="moveAllToSelected()" title="Add all">&gt;&gt;</button>
                       <button type="button" class="btn btn-secondary" (click)="moveAllToAvailable()" title="Remove all">&lt;&lt;</button>
                     </div>
 
-                    <!-- Selected Classes List -->
+
                     <div class="listbox-container">
                       <label>Selected Classes</label>
                       <input type="text" [(ngModel)]="selectedFilter" placeholder="Search selected..." class="listbox-filter">
@@ -57,7 +55,7 @@
                     </div>
                   </div>
 
-                  <!-- Default text input for other settings -->
+
                   <ng-template #textInput>
                     <input type="text" [(ngModel)]="setting.value" (ngModelChange)="onSettingChange()" [title]="setting.description">
                   </ng-template>

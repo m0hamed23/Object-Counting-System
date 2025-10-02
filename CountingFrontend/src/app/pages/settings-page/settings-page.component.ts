@@ -18,7 +18,6 @@ export class SettingsPageComponent implements OnInit {
   private originalSettings = '';
   hasChanges = false;
 
-  // Properties for the Dual Listbox
   availableClasses: string[] = [];
   selectedClasses: string[] = [];
   
@@ -37,7 +36,7 @@ export class SettingsPageComponent implements OnInit {
 
   loadSettings(): void {
     this.settingService.getSettings().subscribe(settings => {
-      this.settings = JSON.parse(JSON.stringify(settings)); // Deep copy
+      this.settings = JSON.parse(JSON.stringify(settings)); 
       this.originalSettings = JSON.stringify(this.settings);
       this.hasChanges = false;
       this.initializeClassLists();
@@ -74,7 +73,6 @@ export class SettingsPageComponent implements OnInit {
     this.hasChanges = JSON.stringify(this.settings) !== this.originalSettings;
   }
   
-  // --- Methods for Dual Listbox ---
   moveToSelected(className: string): void {
     if (!this.selectedClasses.includes(className)) {
         this.selectedClasses.push(className);
@@ -102,7 +100,7 @@ export class SettingsPageComponent implements OnInit {
     const targetClassesSetting = this.settings.find(s => s.name === 'target_classes');
     if (targetClassesSetting) {
       targetClassesSetting.value = this.selectedClasses.join(',');
-      this.onSettingChange(); // Mark that changes have been made
+      this.onSettingChange(); 
     }
   }
 
@@ -111,7 +109,7 @@ export class SettingsPageComponent implements OnInit {
       this.settingService.updateSettings(this.settings).subscribe({
         next: () => {
           alert('Settings updated successfully.');
-          this.loadSettings(); // Reload to get fresh state and reset changes
+          this.loadSettings(); 
         },
         error: (err) => alert(`Failed to update settings: ${err.error?.message || 'Unknown error'}`)
       });

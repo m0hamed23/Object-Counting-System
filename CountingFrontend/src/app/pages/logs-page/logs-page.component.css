@@ -38,16 +38,15 @@
     min-width: 200px;
 }
 
-/* Button wrapper alignment fix */
+
 .form-group.button-wrapper {
     flex-grow: 0;
     justify-content: flex-end;
-    padding-top: 1.75rem; /* Approximate height of label + gap */
-    flex-direction: row; /* Align buttons horizontally */
+    padding-top: 1.75rem; 
+    flex-direction: row; 
     gap: 0.5rem;
 }
 
-/* Remove the sr-only label approach and use padding instead */
 .form-group.button-wrapper label {
     display: none;
 }
@@ -57,14 +56,14 @@ input {
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    height: 2.5rem; /* Fixed height for all inputs */
+    height: 2.5rem; 
     box-sizing: border-box;
     font-size: 1rem;
     line-height: 1.5;
 }
 
 input[type="datetime-local"] {
-    /* Ensure date inputs match text inputs exactly */
+
     height: 2.5rem;
     padding: 0.5rem;
 }
@@ -75,7 +74,7 @@ input[type="datetime-local"] {
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
-    height: 2.5rem; /* Match input height */
+    height: 2.5rem;
     box-sizing: border-box;
     font-size: 1rem;
 }
@@ -139,7 +138,7 @@ table th {
 
 .image-container img {
     max-width: 100%;
-    max-height: calc(90vh - 60px); /* Account for button bar */
+    max-height: calc(90vh - 60px);
     object-fit: contain;
 }
 

@@ -32,19 +32,18 @@ export class LogsPageComponent implements OnInit {
   }
 
   private formatDateForInput(date: Date): string {
-    // Format required for <input type="datetime-local"> is 'yyyy-MM-ddTHH:mm'
     return formatDate(date, 'yyyy-MM-ddTHH:mm', 'en-US');
   }
 
   private getDefaultFromDate(): string {
     const date = new Date();
-    date.setHours(0, 0, 0, 0); // Start of today
+    date.setHours(0, 0, 0, 0);
     return this.formatDateForInput(date);
   }
 
   private getDefaultToDate(): string {
     const date = new Date();
-    date.setHours(23, 59, 59, 999); // End of today
+    date.setHours(23, 59, 59, 999); 
     return this.formatDateForInput(date);
   }
 
@@ -52,10 +51,6 @@ export class LogsPageComponent implements OnInit {
     const fromLocalString = this.fromDate.value || '';
     const toLocalString = this.toDate.value || '';
 
-    // Create Date objects from the local datetime-local input strings.
-    // The browser provides a string like "YYYY-MM-DDTHH:mm", which new Date()
-    // correctly interprets in the user's local timezone.
-    // Then, convert to a full ISO 8601 UTC string to send to the backend.
     const fromUtc = fromLocalString ? new Date(fromLocalString).toISOString() : '';
     const toUtc = toLocalString ? new Date(toLocalString).toISOString() : '';
     
