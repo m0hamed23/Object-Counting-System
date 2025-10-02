@@ -1,4 +1,3 @@
-
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, formatDate } from '@angular/common';
@@ -50,10 +49,18 @@ export class LogsPageComponent implements OnInit {
   }
 
   loadLogs(): void {
-    const from = this.fromDate.value || '';
-    const to = this.toDate.value || '';
+    const fromLocalString = this.fromDate.value || '';
+    const toLocalString = this.toDate.value || '';
+
+    // Create Date objects from the local datetime-local input strings.
+    // The browser provides a string like "YYYY-MM-DDTHH:mm", which new Date()
+    // correctly interprets in the user's local timezone.
+    // Then, convert to a full ISO 8601 UTC string to send to the backend.
+    const fromUtc = fromLocalString ? new Date(fromLocalString).toISOString() : '';
+    const toUtc = toLocalString ? new Date(toLocalString).toISOString() : '';
+    
     const filter = this.eventFilter.value || undefined;
-    this.logService.getLogs(from, to, filter).subscribe(logs => this.logs = logs);
+    this.logService.getLogs(fromUtc, toUtc, filter).subscribe(logs => this.logs = logs);
   }
 
   applyFilters(): void {
@@ -87,5 +94,23 @@ export class LogsPageComponent implements OnInit {
       this.currentObjectUrl = null;
       this.currentImageUrl = null;
     }
+  }
+
+  /**
+   * Converts a UTC timestamp string (which might be missing timezone info)
+   * into a format the Angular date pipe can correctly interpret as UTC.
+   * @param timestamp The UTC datetime string from the API.
+   * @returns A string with 'Z' appended if it was missing, ensuring it's parsed as UTC.
+   */
+  toDisplayableUtc(timestamp: string): string {
+    if (!timestamp) {
+      return '';
+    }
+    // If the string doesn't end with Z and doesn't have a +/- timezone offset,
+    // append 'Z' to ensure it's treated as UTC by the date pipe.
+    if (!timestamp.endsWith('Z') && !/(\+|-)\d{2}:\d{2}$/.test(timestamp)) {
+      return timestamp + 'Z';
+    }
+    return timestamp;
   }
 }
