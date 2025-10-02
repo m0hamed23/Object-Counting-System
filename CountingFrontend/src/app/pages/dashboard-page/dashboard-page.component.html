@@ -1,4 +1,3 @@
-
 <div class="dashboard-container">
     <div class="control-panel">
         <div class="control-group">
@@ -32,7 +31,7 @@
                 <h3>Zones</h3>
                 <input type="text" class="filter-input" placeholder="Filter zones..." [(ngModel)]="zoneFilter" (ngModelChange)="filterZones()">
                 <div class="card-list">
-                    <div *ngFor="let zone of filteredZones; trackby: trackByZoneId" class="card clickable"
+                    <div *ngFor="let zone of filteredZones; trackBy: trackByZoneId" class="card clickable"
                          (click)="selectContext('zone', zone.id)"
                          [class.selected]="selectedContext.type === 'zone' && selectedContext.id === zone.id">
                         <div class="card-content">
