@@ -1,4 +1,4 @@
-# Real-Time AI Object Counting and Monitoring System
+# Real-Time AI Object Counting System (AI-generated Code)
 
 [![Demo Video](https://img.youtube.com/vi/HO7m_LS0Clw/maxresdefault.jpg)](https://www.youtube.com/watch?v=HO7m_LS0Clw)
 
@@ -144,7 +144,9 @@ The frontend development server will start and be accessible at http://localhost
 
 3. You can now start configuring cameras, zones, and locations through the UI!
 
-**Note:** To find the RTSP URL format for your security cameras, refer to this [List of RTSP URLs by camera manufacturer](https://help.nsoft.vision/hc/en-us/articles/4411595651345-List-of-RTSP-URLs-of-security-camera-manufacturers) or search for it online.
+**Notes:** 
+- To find the RTSP URL format for your security cameras, refer to this [List of RTSP URLs by camera manufacturer](https://help.nsoft.vision/hc/en-us/articles/4411595651345-List-of-RTSP-URLs-of-security-camera-manufacturers) or search for it online.
+- The app works with RTSP cameras or any RTSP source. In the demo, I used HappyTimeSoft RTSP Server to stream video files over RTSP to make testing easier.
 
 ## Hardware Acceleration for AI
 
