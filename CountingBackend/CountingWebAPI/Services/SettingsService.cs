@@ -26,6 +26,15 @@ namespace CountingWebAPI.Services
             _logger = logger;
         }
 
+        private async Task LogActionAsync(string eventText, string userId)
+        {
+            string logEvent = $"{eventText} Action by User:{userId}";
+            await _dbHelper.ExecuteNonQueryAsync(
+                "INSERT INTO Logs (Event) VALUES (@Event)",
+                _dbHelper.CreateParameter("@Event", logEvent)
+            );
+        }
+
         public async Task<List<SettingDto>> GetVisibleSettingsAsync()
         {
             string sql = "SELECT Name, DisplayName, Value, Description, IsVisible FROM Settings WHERE IsVisible = 1 ORDER BY SortOrder, DisplayName";
@@ -39,7 +48,7 @@ namespace CountingWebAPI.Services
             });
         }
 
-        public async Task<bool> UpdateSettingsAsync(List<SettingDto> settingsToUpdate)
+        public async Task<bool> UpdateSettingsAsync(List<SettingDto> settingsToUpdate, string userId)
         {
             _cache.Remove(SettingsCacheKey);
 
@@ -66,6 +75,9 @@ namespace CountingWebAPI.Services
                 }
                 await transaction.CommitAsync();
                 _logger.LogInformation("Settings batch update processed successfully within a transaction.");
+
+                // Log the action after a successful transaction
+                await LogActionAsync("Application settings updated.", userId);
 
                 await PublishSettingsChangedEvent();
 
@@ -119,7 +131,7 @@ namespace CountingWebAPI.Services
             return defaultValue;
         }
 
-        public async Task<bool> UpdateSingleSettingAsync(string name, string value)
+        public async Task<bool> UpdateSingleSettingAsync(string name, string value, string userId)
         {
             _cache.Remove(SettingsCacheKey);
             string sql = "UPDATE Settings SET Value = @Value WHERE Name = @Name";
@@ -128,6 +140,7 @@ namespace CountingWebAPI.Services
             if (rowsAffected > 0)
             {
                 _logger.LogInformation($"Setting '{name}' updated to '{value}' in DB.");
+                await LogActionAsync($"Setting '{name}' updated.", userId);
                 await PublishSettingsChangedEvent();
                 return true;
             }

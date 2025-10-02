@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -31,10 +30,18 @@ FFmpegBinariesHelper.RegisterFFmpegBinaries(appSettings.FfmpegPath);
 // Use the SQLite implementation of the database helper
 builder.Services.AddSingleton<IDatabaseHelper, SqliteDatabaseHelper>();
 builder.Services.AddMemoryCache();
+
+// Register application services
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<ActionService>();
+builder.Services.AddScoped<CameraService>();
+builder.Services.AddScoped<LocationService>();
+builder.Services.AddScoped<LogService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ZoneService>();
+
 builder.Services.AddSingleton<SettingsService>();
 builder.Services.AddSingleton<RoiService>();
-
 builder.Services.AddSingleton<VideoProcessingManager>(); 
 builder.Services.AddSingleton<ActionExecutionService>();
 

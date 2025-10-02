@@ -7,50 +7,41 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
-using CountingWebAPI.Data;
-using System.Security.Claims;
-using System;
 
 namespace CountingWebAPI.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class SettingsController : ControllerBase
+    public class SettingsController : BaseApiController
     {
         private readonly SettingsService _settingsService;
         private readonly ILogger<SettingsController> _logger;
-        private readonly IDatabaseHelper _dbHelper;
 
-        public SettingsController(SettingsService settingsService, ILogger<SettingsController> logger, IDatabaseHelper dbHelper) 
+        public SettingsController(SettingsService settingsService, ILogger<SettingsController> logger) 
         { 
             _settingsService = settingsService; 
             _logger = logger;
-            _dbHelper = dbHelper;
         }
 
-        private string? GetCurrentUserId() => User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-        private async Task LogActionAsync(string eventText)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<SettingDto>>> GetSettings()
         {
-            var currentUserId = GetCurrentUserId();
-            string logEvent = $"{eventText} Action by User:{currentUserId}";
-            await _dbHelper.ExecuteNonQueryAsync(
-                "INSERT INTO Logs (Event) VALUES (@Event)",
-                _dbHelper.CreateParameter("@Event", logEvent)
-            );
+            return Ok(await _settingsService.GetVisibleSettingsAsync());
         }
-
-        [HttpGet] public async Task<ActionResult<IEnumerable<SettingDto>>> GetSettings() => Ok(await _settingsService.GetVisibleSettingsAsync());
         
         [HttpPut]
-        public async Task<IActionResult> UpdateSettings([FromBody] List<SettingDto> settingsToUpdate) {
-            if (settingsToUpdate == null || !settingsToUpdate.Any()) return BadRequest(new { message = "No settings provided." });
-            _logger.LogInformation($"Updating {settingsToUpdate.Count} settings.");
-            
-            if (await _settingsService.UpdateSettingsAsync(settingsToUpdate))
+        public async Task<IActionResult> UpdateSettings([FromBody] List<SettingDto> settingsToUpdate)
+        {
+            if (settingsToUpdate == null || !settingsToUpdate.Any())
             {
-                await LogActionAsync("Application settings updated.");
+                return BadRequest(new { message = "No settings provided." });
+            }
+
+            _logger.LogInformation($"User {GetCurrentUserId()} is updating {settingsToUpdate.Count} settings.");
+            
+            var success = await _settingsService.UpdateSettingsAsync(settingsToUpdate, GetCurrentUserId());
+
+            if (success)
+            {
                 return Ok(new { message = "Settings updated successfully" });
             }
 
