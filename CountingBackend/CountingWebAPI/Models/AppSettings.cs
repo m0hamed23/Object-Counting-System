@@ -11,10 +11,7 @@ namespace CountingWebAPI.Models
         public string DefaultRfDetrModelPath { get; set; } = string.Empty;
         public string OperationMode { get; set; } = "Manual";
 
-        // --- REMOVED ---
-        // public int ProcessFrameInterval { get; set; } = 1;
-        // public List<CameraConfig> CameraSettings { get; set; } = new();
-        // public DetectionConfig DetectionSettings { get; set; } = new();
+
     }
 
     public class DefaultUserSettings
@@ -22,13 +19,6 @@ namespace CountingWebAPI.Models
         public string Username { get; set; } = "admin";
         public string Password { get; set; } = "admin";
     }
-
-    // --- REMOVED ---
-    // The CameraConfig and DetectionConfig classes are now obsolete as this
-    // configuration is managed in the database.
-    //
-    // public class CameraConfig { ... }
-    // public class DetectionConfig { ... }
 
     public class JwtSettings
     {
