@@ -50,9 +50,25 @@ namespace CountingWebAPI.Services
                 WHERE 1=1");
 
             var parameters = new List<DbParameter>();
-            if (DateTime.TryParse(from_date, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal, out var fromDate)) { sqlBuilder.Append(" AND l.Timestamp >= @FromDate"); parameters.Add(_dbHelper.CreateParameter("@FromDate", fromDate.ToString("yyyy-MM-dd HH:mm:ss"))); }
-            if (DateTime.TryParse(to_date, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal, out var toDate)) { sqlBuilder.Append(" AND l.Timestamp <= @ToDate"); parameters.Add(_dbHelper.CreateParameter("@ToDate", toDate.ToString("yyyy-MM-dd HH:mm:ss"))); }
-            if (!string.IsNullOrEmpty(event_text)) { sqlBuilder.Append(" AND l.Event LIKE @EventText"); parameters.Add(_dbHelper.CreateParameter("@EventText", $"%{event_text}%")); }
+
+            // --- FIX IS HERE: Removed DateTimeStyles.AssumeUniversal ---
+            if (DateTime.TryParse(from_date, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var fromDate))
+            {
+                sqlBuilder.Append(" AND l.Timestamp >= @FromDate");
+                parameters.Add(_dbHelper.CreateParameter("@FromDate", fromDate.ToString("yyyy-MM-dd HH:mm:ss")));
+            }
+            // --- FIX IS HERE: Removed DateTimeStyles.AssumeUniversal ---
+            if (DateTime.TryParse(to_date, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var toDate))
+            {
+                sqlBuilder.Append(" AND l.Timestamp <= @ToDate");
+                parameters.Add(_dbHelper.CreateParameter("@ToDate", toDate.ToString("yyyy-MM-dd HH:mm:ss")));
+            }
+
+            if (!string.IsNullOrEmpty(event_text))
+            {
+                sqlBuilder.Append(" AND l.Event LIKE @EventText");
+                parameters.Add(_dbHelper.CreateParameter("@EventText", $"%{event_text}%"));
+            }
 
             sqlBuilder.Append(" ORDER BY l.Timestamp DESC LIMIT 1000");
 
