@@ -1,4 +1,4 @@
-# Real-Time AI Object Counting System (AI-generated Code)
+# Real-Time AI Object Counting System
 
 [![Demo Video](https://img.youtube.com/vi/HO7m_LS0Clw/maxresdefault.jpg)](https://www.youtube.com/watch?v=HO7m_LS0Clw)
 
