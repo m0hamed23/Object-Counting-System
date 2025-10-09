@@ -1,6 +1,14 @@
 # Real-Time AI Object Counting System
 
-[![Demo Video](https://img.youtube.com/vi/HO7m_LS0Clw/maxresdefault.jpg)](https://www.youtube.com/watch?v=HO7m_LS0Clw)
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=HO7m_LS0Clw">
+    <img src="https://img.youtube.com/vi/HO7m_LS0Clw/maxresdefault.jpg" width="70%">
+  </a><br>
+  <a href="https://www.youtube.com/watch?v=HO7m_LS0Clw">
+    <img src="https://img.shields.io/badge/▶️%20Watch%20on%20YouTube-red?logo=youtube&logoColor=white" width="300">
+  </a>
+</p>
+
 
 ## Key Features
 
