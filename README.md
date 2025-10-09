@@ -12,7 +12,7 @@
 
 ## Key Features
 
-- **Real-Time Video Processing** - Supports multiple RTSP camera streams
+- **Real-Time Video Processing** - Supports multiple RTSP streams 
 - **AI-Powered Object Detection** - Utilizes ONNX models (YOLO or RF-DETR) for object detection 
 - **Live Dashboard** - Displays real-time object counts by location or zone, alongside annotated video streams
 - **Customizable Regions of Interest** - Easily define and manage detection zones within each camera feed
